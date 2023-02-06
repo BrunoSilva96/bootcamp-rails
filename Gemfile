@@ -5,6 +5,7 @@ ruby '2.7.1'
 
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
 # Basic
+gem 'bootsnap', '>= 1.4.2', require: false
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 
@@ -14,7 +15,8 @@ gem 'devise_token_auth', '1.1.4'
 # Cors
 gem 'rack-cors', '~> 1.1.1'
 
-gem 'bootsnap', '>= 1.4.2', require: false
+# Render
+gem 'jbuilder', '~> 2.10.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
