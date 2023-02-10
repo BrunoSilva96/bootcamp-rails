@@ -1,3 +1,3 @@
 json.categories do
-  json.array! @categories, :id, :name
+  json.array! @system_requirement, :id, :name, :operational_system, :processor
 end

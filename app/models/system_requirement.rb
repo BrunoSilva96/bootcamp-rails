@@ -11,3 +11,4 @@ class SystemRequirement < ApplicationRecord
   include NameSearchable
   include Paginatable
 end
+ 
