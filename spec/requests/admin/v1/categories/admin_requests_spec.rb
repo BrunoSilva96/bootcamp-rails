@@ -29,7 +29,7 @@ RSpec.describe "Admin::V1::Categories as :admin", type: :request do
           post url, headers: auth_header(user), params: category_params
         end.to change(Category, :count).by(1)
       end
-
+ 
       it 'returns last added Category' do
         post url, headers: auth_header(user), params: category_params
         expect_category = Category.last.as_json(only: %i(id name))

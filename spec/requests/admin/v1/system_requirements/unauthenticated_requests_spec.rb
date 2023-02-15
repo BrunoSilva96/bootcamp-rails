@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Admin::V1::SystemRequirement without authentication", type: :request do
-  let(:user) { create(:user, profile: :client) }
+  
 
   context "GET /system_requirements" do
     let(:url) { "/admin/v1/system_requirements" }
