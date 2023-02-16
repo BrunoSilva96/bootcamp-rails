@@ -34,7 +34,7 @@ module Admin::V1
       return {} unless params.has_key?(:category)
       params.require(:category).permit(:name)
     end
-
+ 
     def save_category!
       @category.save!
       render :show
