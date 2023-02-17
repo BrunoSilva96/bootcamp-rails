@@ -15,10 +15,10 @@ RSpec.describe "Admin::V1::Users as :admin", type: :request do
       
       it "returns 10 first Users" do
         get url, headers: auth_header(login_user)
-        expected_users = users[0..9].as_json(
+        expect_users = users[0..11].as_json(
           only: %i(id name email profile)
         )
-        expect(body_json['users']).to contain_exactly *expected_users
+        expect(body_json['users']).to contain_exactly *expect_users
       end
 
       it "returns success status" do
