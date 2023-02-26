@@ -4,14 +4,14 @@ module Admin::V1
     before_action :load_user, only: [:update, :destroy]
 
     def index
-      @users = User.all
+      @users = load_users
     end
 
     def create
       @user = User.new
       @user.attributes = user_params
       save_user!
-    end
+    end 
 
     def update
       @user.attributes = user_params
@@ -26,6 +26,11 @@ module Admin::V1
 
     def load_user
       @user = User.find(params[:id])
+    end
+
+    def load_users
+      permitted = params.permit({search: :name}, { order: {} }, :page, :length)
+      Admin::ModelLoadingService.new(User.all, permitted).call
     end
 
     def user_params

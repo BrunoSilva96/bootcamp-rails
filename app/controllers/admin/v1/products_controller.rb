@@ -39,7 +39,7 @@ module Admin::V1
       @product = Product.find(params[:id])
     end
 
-    def run_service(product = nil)
+    def run_service
       @saving_service = Admin::ProductSavingService.new(product_params.to_h, @product)
       @saving_service.call
       @product = @saving_service.product
@@ -62,8 +62,7 @@ module Admin::V1
     end
 
     def game_params
-      params.require(:game).permit(:mode, :release_date, :developer, :system_requirement_id)
+      params.require(:product).permit(:mode, :release_date, :developer, :system_requirement_id)
     end
-
   end
 end
