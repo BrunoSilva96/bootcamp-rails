@@ -1,7 +1,9 @@
 FactoryBot.define do
   factory :license do
-    key { 1 }
-    game { nil }
-    user { nil }
+    key { Faker::Lorem.characters(number: 15) }
+    platform { :steam }
+    status { :available }
+    game
+    user
   end
 end
