@@ -4,7 +4,10 @@ module Admin::V1
     before_action :load_user, only: [:update, :destroy]
 
     def index
-      @users = load_users
+      scope_without_current_user = User.where.not(id: @current_user.id)
+      permitted = params.permit({ search: :name }, { order: {} }, :page, :length)
+      @loading_service = Admin::ModelLoadingService.new(scope_without_current_user, permitted)
+      @loading_service.call
     end
 
     def create
@@ -13,6 +16,9 @@ module Admin::V1
       save_user!
     end 
 
+    def show
+    end
+
     def update
       @user.attributes = user_params
       save_user!
@@ -20,19 +26,15 @@ module Admin::V1
 
     def destroy
       @user.destroy!
+    rescue
+      render_error(fields: @user.errors.messages)
     end
-
   private
 
     def load_user
       @user = User.find(params[:id])
     end
-
-    def load_users
-      permitted = params.permit({search: :name}, { order: {} }, :page, :length)
-      Admin::ModelLoadingService.new(User.all, permitted).call
-    end
-
+    
     def user_params
       return {} unless params.has_key?(:user)
       params.require(:user).permit(:id, :name, :email, :password, :password_confirmation, :profile)

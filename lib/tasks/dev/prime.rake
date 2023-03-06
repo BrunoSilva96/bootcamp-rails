@@ -36,7 +36,7 @@ if Rails.env.development? || Rails.env.test?
         game_categories_ids = []
         categories_count.times { game_categories_ids << Category.all.sample.id }
         game = create(:game, system_requirement: system_requirements.sample, release_date: release_date)
-        create(:product, name: game_name, status: availability, featured: featured, price: price,
+        create(:product, name: game_name, status: availability, price: price,
                          category_ids: game_categories_ids, productable: game)
       end
 
@@ -47,12 +47,12 @@ if Rails.env.development? || Rails.env.test?
         create(:license, status: status, platform: platform, game: game)
       end
 
-      10.times do
-        product = Product.all.sample
-        (1..10).to_a.sample.times do
-          product.wish_items.create(user: User.all.sample)
-        end
-      end
+      # 10.times do
+      #   product = Product.all.sample
+      #   (1..10).to_a.sample.times do
+      #     product.wish_items.create(user: User.all.sample)
+      #   end
+      # end
     end
   end
-end
+end 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Admin V1 Licenses as :admin", type: :request do
   let(:user) { create(:user) }
-  let(:game) { create(:game) }
+  let!(:game) { create(:game) }
 
   context "GET /games/:game_id/licenses" do
     let(:url) { "/admin/v1/games/#{game.id}/licenses" }
@@ -116,7 +116,7 @@ RSpec.describe "Admin V1 Licenses as :admin", type: :request do
           post url, headers: auth_header(user), params: license_params
         end.to change(License, :count).by(1)
       end
-
+      
       it 'returns last added License' do
         post url, headers: auth_header(user), params: license_params
         expected_license = License.last.as_json(only: %i(id key platform status game_id))
