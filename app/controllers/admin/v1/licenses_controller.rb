@@ -10,7 +10,7 @@ module Admin::V1
     end
 
     def create
-      @license = License.new
+      @license = License.new(game_id: params[:game_id])
       @license.attributes = license_params
       save_license!
     end
