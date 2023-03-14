@@ -1,4 +1,7 @@
 class Coupon < ApplicationRecord
+  class InvalidUse < StandardError; end
+
+  validates :name, presence: true
   validates :code, presence: true, uniqueness: { case_sensitive: false }
   validates :status, presence: true
   validates :discount_value, presence: true, numericality: { greater_than: 0 }
@@ -8,4 +11,9 @@ class Coupon < ApplicationRecord
 
   include LikeSearchable
   include Paginatable
+
+  def validate_use!
+    raise InvalidUse unless self.active? && self.due_date >= Time.now
+    true
+  end
 end
