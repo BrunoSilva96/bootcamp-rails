@@ -4,6 +4,9 @@ FactoryBot.define do
     subtotal { Faker::Commerce.price(range: 200.00..400.00) }
     total_amount { subtotal }
     payment_type { :credit_card }
+    card_hash { Faker::Lorem.characters }
+    address { build(:address)}
+    document { "03.000.050/0001-67" }
     installments { 5 }
     user
 
