@@ -1,5 +1,6 @@
 module Storefront 
   class CheckoutProcessorService
+    class InvalidParamsError < StandardError; end
     attr_reader :errors, :order
 
     def initialize(params)
@@ -13,6 +14,7 @@ module Storefront
       check_emptyness_of_items_params
       validate_coupon
       do_checkout
+      raise InvalidParamsError if @erros.present?
     end
 
     private
@@ -49,13 +51,34 @@ module Storefront
     def create_order
       Order.transaction do
         @order = instantiate_order
+        line_items = @params[:items].map{ |line_item_params| instantiate_line_items(line_item_params) }
+        save!(line_items)
       end
     rescue ArgumentError => e
       @errors[:base] = e.message
     end
 
     def instantiate_order
+      order_params = @params.slice(:document, :payment_type, :installments, 
+                                   :card_hash, :coupon_id, :user_id)
+      order = Order.new(order_params)
+      order.address = Address.new(@params[:address])
+      order
+    end
 
+    def instantiate_line_items(line_item_params)
+      line_item = @order.line_items.build(line_item_params)
+      line_item.payed_price = line_item.product.price if line_item.product.present?
+      line_item.validate!
+      line_item
+    end
+
+    def save!(line_items)
+      @order.subtotal = line_items.sum(&:total).floor(2)
+      @order.total_amount = (@order.subtotal * (1 - @coupon.discount_value / 100)).floor(2) if @coupon.present?
+      @order.total_amount ||= @order.subtotal
+      @order.save!
+      line_items.each(&:save!) 
     end
   end
 end
