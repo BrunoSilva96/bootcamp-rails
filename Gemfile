@@ -29,6 +29,7 @@ group :development, :test do
   gem 'faker'
   gem 'pry-byebug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-rails'
+  gem 'database_cleaner'
 end
 
 group :development do
