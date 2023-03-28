@@ -25,3 +25,9 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/config/credentials/development.key
+
+/config/credentials/teste.key
+
+/config/credentials/test.key
