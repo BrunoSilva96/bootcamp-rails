@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative '../../../app/libs/juno_api/auth.rb'
+require_relative '../../../libs/juno_api/auth.rb'
 
 describe JunoApi::Auth do
   let(:auth_class) { JunoApi::Auth.clone }
@@ -13,7 +13,7 @@ describe JunoApi::Auth do
     end
 
       it "returns only one instance" do
-        allow(auth_class).to recive(:post).and_return(response)
+        allow(auth_class).to receive(:post).and_return(response)
         object_ids = 0.upto(4).collect do
           auth_class.singleton
         end
@@ -23,7 +23,7 @@ describe JunoApi::Auth do
       end
 
       it "call juno API only once" do
-        allow(auth_class).to recive(:post).and_return(response).once
+        allow(auth_class).to receive(:post).and_return(response).once
         object_ids = 0.upto(4).collect do
           auth_class.singleton
         end
@@ -33,7 +33,7 @@ describe JunoApi::Auth do
   context "when call #access_token" do
     let(:first_response) do
       double(
-        parsed_response: { 'access_token' => SecureRandom.hex, 'expires_in' => 1.day.from_now.to_i },
+        parsed_response: { 'access_token' => SecureRandom.hex, 'expires_in' => 1.day },
         code: 200
       )
     end
@@ -45,7 +45,7 @@ describe JunoApi::Auth do
     end
 
     before(:each) do
-      allow(auth_class).to recive(:post).and_return(first_response, second_response)
+      allow(auth_class).to receive(:post).and_return(first_response, second_response)
     end
 
     it "returns same access token before expiration" do
