@@ -8,7 +8,7 @@ module JunoApi
     PAYMENT_TYPE = { 'billet' => "BOLETO", 'credit_card' => "CREDIT_CARD" }
     CHARGE_KEYS_TO_KEEP = %i[id code installment_link amount status]
 
-    base_uri = "#{JUNO_RESOURCE_URL}/charges"
+    base_uri "#{JUNO_RESOURCE_URL}/charges"
 
     headers 'Content-Type' => 'application/json'
     headers 'X-Api-Version' => '2'
