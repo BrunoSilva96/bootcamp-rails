@@ -30,4 +30,10 @@ Rails.application.routes.draw do
       resources :checkouts, only: :create
     end
   end
+
+  namespace :juno do
+    namespace :v1 do
+      resources :payment_confirmations, only: :create
+    end
+  end
 end
