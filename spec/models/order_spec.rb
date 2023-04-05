@@ -47,6 +47,14 @@ RSpec.describe Order, type: :model do
     expect(subject.status).to eq "processing_order"
   end
 
+  it "schedules a job for Juno charge creation after creation" do
+    order = build(:order)
+    order_params = { card_hash: order.card_hash, document: order.document, address: order.address.attributes }
+    expect do
+      order.save!
+    end.to have_enqueued_job(Juno::ChargeCreationJob).with(order, order_params)
+  end
+
   context "when :payment_type is :credit_card and is on :create process" do
     it "validates :card_hash presence" do
       subject = build(:order, payment_type: :credit_card, card_hash: nil)
