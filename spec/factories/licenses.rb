@@ -4,6 +4,5 @@ FactoryBot.define do
     platform { :steam }
     status { :available }
     game
-    user
   end
 end
