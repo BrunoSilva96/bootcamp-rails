@@ -50,6 +50,6 @@ RSpec.describe Coupon, type: :model do
     end
   end
 
-  it_as_behavior_of "like searchable concern", :coupon, :name
+  it_has_behavior_of "like searchable concern", :coupon, :name
   it_behaves_like "paginatable concern", :coupon
 end
