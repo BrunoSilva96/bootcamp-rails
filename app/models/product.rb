@@ -9,6 +9,7 @@ class Product < ApplicationRecord
   has_many :categories, through: :product_categories
   
   has_many :wish_items
+  has_many :line_items
 
   has_one_attached :image
   validates :image, presence: true

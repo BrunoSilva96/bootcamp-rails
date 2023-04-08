@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       post "/coupons/:coupon_code/validations", to: "coupon_validations#create"
       resources :checkouts, only: :create
       resources :orders, only: [:index, :show]
+      resources :games, only: :index
     end
   end
 
