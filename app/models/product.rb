@@ -18,4 +18,8 @@ class Product < ApplicationRecord
 
   include LikeSearchable
   include Paginatable
+
+  def sells_count
+    LineItem.joins(:order).where(orders: { status: :finished }, product: self).sum(:quantity)
+  end
 end
