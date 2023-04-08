@@ -10,6 +10,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 
 gem "sidekiq", '~> 6.1.3'
+gem 'sidekiq-scheduler', '~> 3.0.1'
 
 gem 'httparty', '~> 0.18.1'
 
