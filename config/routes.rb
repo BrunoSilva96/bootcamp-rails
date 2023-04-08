@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       resources :wish_items, only: [:index, :create, :destroy]
       post "/coupons/:coupon_code/validations", to: "coupon_validations#create"
       resources :checkouts, only: :create
+      resources :orders, only: [:index, :show]
     end
   end
 

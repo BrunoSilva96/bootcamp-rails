@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :wish_items
+  has_many :orders
 
   validates :name, presence: true
   validates :profile, presence: true
