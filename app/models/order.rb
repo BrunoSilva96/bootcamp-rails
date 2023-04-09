@@ -1,4 +1,8 @@
 class Order < ApplicationRecord
+  include Paginatable
+
+  DAYS_TO_DUE = 7 
+
   belongs_to :user
   belongs_to :coupon, optional: true
   has_many :line_items
@@ -20,8 +24,6 @@ class Order < ApplicationRecord
                  waiting_payment: 3, payment_accepted: 4, 
                  payment_denied: 5, finished: 6 }
   enum payment_type: { credit_card: 1, billet: 2 }
-
-  DAYS_TO_DUE = 7
 
   attribute :address
   attribute :card_hash

@@ -90,4 +90,7 @@ RSpec.describe Order, type: :model do
       expect(subject.errors).to have_key(:address)
     end
   end
+
+  it_behaves_like "paginatable concern", :order
+
 end
