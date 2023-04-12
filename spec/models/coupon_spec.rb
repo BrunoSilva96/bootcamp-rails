@@ -42,7 +42,7 @@ RSpec.describe Coupon, type: :model do
       subject.status = :inactive
       expect do
         subject.validate_use!
-      end.to raise_error(Coupon::InvalidUse)
+      end.to raise_error(Coupon::InvalidUse) 
     end
 
     it "returns true when it's on date and active" do

@@ -19,13 +19,13 @@ RSpec.describe Product, type: :model do
   it { is_expected.to define_enum_for(:status).with_values({ available: 1, unavailable: 2 }) }
 
   it { is_expected.to have_many(:wish_items) }
-  it { is_expected.to have_many(:line_item) }
+  it { is_expected.to have_many(:line_items) }
 
   it_has_behavior_of "like searchable concern", :product, :name
   it_behaves_like "paginatable concern", :product
 
   it "creates as unfeatured by default" do 
-    subject.featured = nil
+    subject.featured = nil 
     subject.save(validate: false)
     expect(subject.featured).to be_falsey
   end

@@ -6,7 +6,7 @@ module Storefront
     def initialize(params)
       @params = params
       @order = nil
-      @errors ={}
+      @errors = {}
     end
 
     def call

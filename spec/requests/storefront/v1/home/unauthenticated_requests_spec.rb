@@ -8,7 +8,7 @@ RSpec.describe "Storefront V1 Home", type: :request do
     
     let!(:cheap_products) do 
       products = []
-      10.times do
+      10.times do 
         products << create(:product, price: Faker::Commerce.price(range: 5.00...90.00), featured: false)
       end
       products

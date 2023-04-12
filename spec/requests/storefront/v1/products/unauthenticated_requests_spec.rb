@@ -70,7 +70,7 @@ RSpec.describe "Storefront V1 Home", type: :request do
     end
 
     context "with categories filter" do
-      let!(:categories) { create_list(:category, 3) }
+      let!(:categories) { create_list(:category, 3) } 
       let!(:categories_products) { create_list(:product, 15, category_ids: categories.map(&:id).sample(2)) }
 
       let(:search_params) { { category_ids: categories.map(&:id) } }
